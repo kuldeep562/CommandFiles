@@ -1,0 +1,218 @@
+==========================
+LINUX COMMANDS — quick reference
+==========================
+
+--- Basic Navigation
+To see current working directory
+: pwd
+
+To list files (detailed + hidden)
+: ls -la
+
+To change directory
+: cd /path/to/dir
+
+To go back (previous dir)
+: cd -
+
+To see disk free space
+: df -h
+
+To check free RAM and swap
+: free -h
+
+--- File & Directory Management
+Create empty file
+: touch filename.txt
+
+Create directory
+: mkdir dirname
+
+Create nested directories
+: mkdir -p parent/child/grandchild
+
+Copy file
+: cp file1.txt file2.txt
+
+Copy directory (recursive)
+: cp -r dir1/ dir2/
+
+Move/rename file
+: mv oldname.txt newname.txt
+
+Remove file
+: rm filename.txt
+
+Remove directory (recursive)
+: rm -r dirname
+
+Force remove without prompt
+: rm -rf dirname
+
+View file contents
+: cat filename.txt
+
+View file with pager (scroll)
+: less filename.txt
+
+View beginning of file
+: head filename.txt
+
+View end of file (follow updates)
+: tail -f filename.txt
+
+--- File Permissions / Ownership
+Show permissions
+: ls -l
+
+Change file permission (e.g. 755)
+: chmod 755 filename.sh
+
+Make script executable
+: chmod +x script.sh
+
+Change ownership to user:group
+: chown user:group filename.txt
+
+--- Search & Find
+Find file by name
+: find /path -name "filename*"
+
+Find string inside files
+: grep "search-term" file.txt
+Recursive grep in folder
+: grep -r "search-term" /path
+
+Search with line numbers
+: grep -n "term" file.txt
+
+--- Processes
+Show all processes
+: ps aux
+
+Search process by name
+: ps aux | grep process-name
+
+Kill process by PID
+: kill -9 <pid>
+
+Show real-time process usage
+: top
+(Improved interface)
+: htop   # if installed
+
+--- Users & Groups
+Show current user
+: whoami
+
+Show all logged-in users
+: who
+
+Switch user
+: su - username
+
+Run command as superuser
+: sudo <command>
+
+--- Package Management (Debian/Ubuntu)
+Update package lists
+: sudo apt update
+
+Upgrade packages
+: sudo apt upgrade -y
+
+Install a package
+: sudo apt install package-name
+
+Remove a package
+: sudo apt remove package-name
+
+--- Systemctl (Services)
+Start a service
+: sudo systemctl start service-name
+
+Stop a service
+: sudo systemctl stop service-name
+
+Restart a service
+: sudo systemctl restart service-name
+
+Check service status
+: systemctl status service-name
+
+Enable service at boot
+: sudo systemctl enable service-name
+
+Disable service at boot
+: sudo systemctl disable service-name
+
+--- Networking
+Check IP address (modern)
+: ip addr show
+
+Check IP (old)
+: ifconfig   # (may need net-tools)
+
+Check active connections
+: netstat -tulnp   # needs net-tools
+
+Check listening ports
+: ss -tuln
+
+Ping a host
+: ping google.com
+
+Download file (curl/wget)
+: curl -O http://example.com/file
+: wget http://example.com/file
+
+--- Archive / Compression
+Create tar archive
+: tar -cvf archive.tar file1 file2 dir1
+
+Extract tar archive
+: tar -xvf archive.tar
+
+Create gzip-compressed tar
+: tar -czvf archive.tar.gz dir/
+
+Extract gzip-compressed tar
+: tar -xzvf archive.tar.gz
+
+Zip file
+: zip file.zip file1 file2
+
+Unzip file
+: unzip file.zip
+
+--- System Info
+Check Linux distro
+: lsb_release -a   # Ubuntu/Debian
+: cat /etc/os-release
+
+Kernel version
+: uname -r
+
+All system info
+: uname -a
+
+Show uptime
+: uptime
+
+--- Handy shortcuts
+Clear terminal
+: clear
+
+Run last command again
+: !!
+
+Run command in background
+: command &
+
+Show command history
+: history
+
+Search in history
+: history | grep keyword
+
+

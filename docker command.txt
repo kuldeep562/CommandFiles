@@ -1,0 +1,142 @@
+==========================
+DOCKER COMMANDS — quick reference
+==========================
+
+--- Containers
+To see all containers (running + stopped)
+: docker ps -a
+
+To see only running containers
+: docker ps
+
+To start a container
+: docker start <container-id>
+
+To stop one specific container
+: docker stop <container-id>
+
+To restart a container
+: docker restart <container-id>
+
+To remove one specific container
+: docker rm <container-id>
+
+To stop ALL running containers
+: docker stop $(docker ps -q)
+
+To remove ALL containers
+: docker rm $(docker ps -aq)
+
+--- Images
+To see all images
+: docker images
+
+To build an image (from Dockerfile)
+: docker build -t image-name:tag .
+
+To remove one specific image
+: docker rmi <image-id>
+
+To remove ALL images
+: docker rmi -f $(docker images -q)
+
+To pull an image from Docker Hub
+: docker pull image-name:tag
+
+To save an image as tar file (backup/export)
+: docker save -o image.tar image-name:tag
+
+To load image from tar file
+: docker load -i image.tar
+
+--- Run & Exec
+To run a container from image
+: docker run -it --name mycontainer image-name
+
+Run with port mapping
+: docker run -d -p 8080:80 --name webserver nginx
+
+Run with mounted volume
+: docker run -it -v /host/path:/container/path image-name
+
+To attach into a running container
+: docker exec -it <container-id> /bin/bash
+(Or sh if bash not present)
+
+To see container logs
+: docker logs <container-id>
+(Tail logs live)
+: docker logs -f <container-id>
+
+--- Volumes
+To list all volumes
+: docker volume ls
+
+To remove unused volumes
+: docker volume rm $(docker volume ls -q)
+
+To prune dangling/unused volumes
+: docker volume prune -f
+
+--- Networks
+To list networks
+: docker network ls
+
+To remove all unused networks
+: docker network prune -f
+
+To connect a container to a network
+: docker network connect <network> <container-id>
+
+To disconnect a container from a network
+: docker network disconnect <network> <container-id>
+
+--- Cleanup
+To remove all unused data (containers, images, volumes, networks)
+: docker system prune -a --volumes -f
+
+To just prune unused images
+: docker image prune -f
+
+To just prune stopped containers
+: docker container prune -f
+
+--- Copy files
+Copy file from container to host
+: docker cp <container-id>:/path/in/container /host/path
+
+Copy file from host to container
+: docker cp /host/path <container-id>:/path/in/container
+
+--- Docker Compose (if installed)
+Start services
+: docker compose up -d
+
+Stop services
+: docker compose down
+
+Rebuild services (force rebuild images)
+: docker compose up -d --build
+
+View logs
+: docker compose logs -f
+
+--- Info / Debug
+Show detailed container info
+: docker inspect <container-id>
+
+Show resource usage (CPU/mem) of containers
+: docker stats
+
+Show events in real time
+: docker events
+
+--- Handy shortcuts
+List dangling images (no tag, <none>)
+: docker images -f "dangling=true"
+
+Remove dangling images
+: docker rmi $(docker images -f "dangling=true" -q)
+
+Get IP of a container
+: docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container-id>

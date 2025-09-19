@@ -1,0 +1,189 @@
+==========================
+GIT COMMANDS — quick reference
+==========================
+
+--- Basic / Setup
+To check Git version
+: git --version
+
+To set global name & email
+: git config --global user.name "Your Name"
+: git config --global user.email "you@example.com"
+
+To edit/check global config (interactive)
+: git config --global --edit
+
+--- Start / Clone repos
+To initialize a new repo (if .git exists it will reinitialize)
+: git init
+
+To clone a remote repo
+: git clone <repo-url>
+
+--- Status / Staging / Commit
+To see current status
+: git status
+Short status
+: git status -sb
+
+To add all changes to staging
+: git add .
+
+To add a specific file to staging
+: git add path/to/filename.txt
+: git add path/to/filename.py
+
+To unstage a file (remove from staging)
+: git restore --staged path/to/filename
+
+To commit staged changes with message
+: git commit -m "Your commit message"
+
+To amend last commit (change message or add staged changes)
+: git commit --amend -m "New message"
+
+--- Branching & switching
+To create a new branch (local)
+: git branch branch-name
+
+To switch to a branch
+: git checkout branch-name
+(Modern alternative)
+: git switch branch-name
+
+Create a new branch and switch to it
+: git checkout -b branch-name
+(Modern alternative)
+: git switch -c branch-name
+
+To list local branches
+: git branch
+
+To list remote branches
+: git branch -r
+
+To list all branches (local + remote)
+: git branch -a
+
+To delete a local branch (safe)
+: git branch -d branch-name
+
+Force-delete a local branch
+: git branch -D branch-name
+
+--- Remote (origin) & fetch/pull/push
+To add a remote named "origin"
+: git remote add origin <repo-url>
+
+To see remote URLs
+: git remote -v
+
+To fetch from remote and prune deleted branches
+: git fetch -p
+
+To pull updates from remote branch into current branch
+: git pull origin branch-name
+(Prefer rebase to keep linear history)
+: git pull --rebase origin branch-name
+
+To push local branch to remote
+: git push origin branch-name
+
+To push a new local branch and set upstream (so later `git push` works)
+: git push -u origin branch-name
+
+To delete a remote branch
+: git push origin --delete branch_name
+
+--- History & logs
+Show compact history (ID + message)
+: git log --oneline
+
+Show graph style history with all refs
+: git log --oneline --graph --all
+More detailed (decorate with branch names)
+: git log --oneline --graph --decorate --all
+
+Show full commit history
+: git log
+
+--- Merge / Rebase
+To merge another branch into current branch
+: git merge branch-name
+
+To rebase current branch onto another
+: git rebase branch-name
+
+--- Undo / Reset / Restore
+Undo last commit but keep changes staged
+: git reset --soft HEAD~1
+
+Undo last commit and keep changes in working directory (unstaged)
+: git reset --mixed HEAD~1
+
+Discard all local changes (WARNING: destroys uncommitted work)
+: git reset --hard HEAD
+: git checkout -- path/to/file   # revert single file to HEAD
+
+Restore file from another commit/branch
+: git restore --source <commit-or-branch> -- path/to/file
+(Or older style)
+: git checkout <commit-or-branch> -- path/to/file
+
+--- Create Pull Request (using GitHub CLI)
+Create PR (example)
+: gh pr create --base main --head branch-ka-naam --title "Your PR title" --body "Your PR description"
+
+Open PR in browser
+: gh pr view --web
+
+--- Shortcuts / useful ones
+Create a quick checkpoint (commit)
+: git commit -m "checkpoint: short note"
+
+To see which remote branch a local branch tracks
+: git branch -vv
+
+Stash changes (save work temporarily)
+: git stash
+Apply last stash
+: git stash pop
+List stashes
+: git stash list
+
+Show remote-tracking branches and where they point
+: git remote show origin
+
+--- Step-by-step: push code into a NEW branch
+(If branch already exists, skip step 1)
+1) Create & checkout new branch:
+: git checkout -b branch-ka-naam
+(Or) : git switch -c branch-ka-naam
+
+2) Add all changes:
+: git add .
+
+3) Commit:
+: git commit -m "My latest code added to new branch"
+
+4) Push and set upstream:
+: git push -u origin branch-ka-naam
+
+Example (your branch):
+: git checkout -b branch-ka-naam
+: git add .
+: git commit -m "My latest code"
+: git push -u origin branch-ka-naam
+
+To push further updates later (after upstream set)
+: git push
+(Or explicitly)
+: git push origin branch-ka-naam
+
+--- Additional helpful tips
+• Use `git push -u origin branch` once so future `git push`/`git pull` works without specifying origin/branch.
+• Prefer `git pull --rebase` to avoid unnecessary merge commits for small feature branches.
+• Always `git fetch -p` periodically to clean up remote-tracking refs removed on remote.
+• For safety add `--dry-run` to scripts that delete branches or prune objects.
+
+--- End of file
